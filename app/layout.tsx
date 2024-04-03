@@ -7,6 +7,7 @@ import {
   get_files_path_in_a_folder,
   get_files_metadata_in_a_folder,
 } from "@/utils";
+import { Analytics } from "@vercel/analytics/react";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -42,6 +43,7 @@ export default async function RootLayout({
             </div>
           </div>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
