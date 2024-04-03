@@ -17,10 +17,12 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import Toc from "@/components/Toc";
 import { Metadata } from "next";
-import { get_file_metadata } from "@/utils";
+import { get_file_metadata, get_files_path_in_a_folder } from "@/utils";
 import { ArticleMetadata } from "@/type";
 import { CategoryLink, TagLink } from "@/components/Links";
 // import { useEffect } from "react";
+
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
@@ -34,7 +36,15 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   console.log("generateStatticParams");
-  return [{ slug: ["generate"] }, { slug: ["okk"] }];
+  let metadata = await get_files_path_in_a_folder("./md");
+
+  metadata = metadata.map((data) => data.replace(/\.md$/g, ""));
+
+  return metadata.map((data) => {
+    const x = data.split("/");
+    x.shift();
+    return { slug: x };
+  });
 }
 // /product/[id]	                { id: string }[]
 // /products/[category]/[product]	{ category: string, product: string }[]

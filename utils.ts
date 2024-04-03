@@ -9,7 +9,9 @@ import remarkFrontmatter from "remark-frontmatter";
 export async function get_files_metadata_in_a_folder(curPath: string) {
   let articleMetadata: ArticleMetadata[] = [];
 
-  const files = await fs.readdir(curPath, { withFileTypes: true });
+  const files = await fs.readdir(curPath, {
+    withFileTypes: true,
+  });
   for (const file of files) {
     const fullPath = path.join(curPath, file.name);
 
