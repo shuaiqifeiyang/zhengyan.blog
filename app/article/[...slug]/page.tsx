@@ -5,6 +5,7 @@ import remarkStringfy from "remark-stringify";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
+import remarkMath from "remark-math";
 import remarkSlug from "remark-slug";
 import rehypeToc from "@jsdevtools/rehype-toc";
 import remarkToc from "remark-toc";
@@ -12,6 +13,7 @@ import Markdown from "react-markdown";
 import MarkNav from "markdown-navbar";
 import remarkFrontmatter from "remark-frontmatter";
 import rehypeHighlight from "rehype-highlight";
+import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
@@ -59,9 +61,11 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
   const mdSource = await unified()
     .use(remarkParse)
+    .use(remarkMath)
     .use(remarkFrontmatter, { marker: "-", type: "yaml" })
     .use(remarkGfm)
     .use(remarkRehype)
+    .use(rehypeKatex)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
     .use(rehypePrettyCode, { theme: "github-light" })
@@ -86,9 +90,11 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
   return (
     <div className="w-full">
-      <div className="w-full">
+      <div className="w-full flex flex-col items-center">
         <div className="pt-10 flex flex-col">
-          <h1 className="text-[1.8rem] font-bold">{mdata.title!}</h1>
+          <h1 className="text-[1.8rem] font-bold max-w-[35ch]">
+            {mdata.title!}
+          </h1>
           <div>{mdata.created_at}</div>
           <div className="flex">
             <div className="pr-2">🗂️</div>
@@ -114,10 +120,11 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             })}
           </div>
           <article
-            className="prose py-5"
+            className="prose pt-5 pb-32"
             dangerouslySetInnerHTML={{ __html: String(mdSource) }}
           />
         </div>
+
         {/* <div>
         <TOC markdown={source} />
       </div> */}

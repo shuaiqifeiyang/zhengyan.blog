@@ -38,15 +38,15 @@ export default function PostSection({
         </ArticleLink>
       </div>
 
-      <div className="flex gap-x-3">
+      <div className="flex flex-col sm:flex-row gap-x-3">
         {image && (
-          <div className="h-32 py-1 w-52 shrink-0">
+          <div className="w-full h-48 sm:h-32 py-1 sm:w-52 shrink-0">
             <Image
               src={image}
-              className="object-cover w-full h-full rounded-lg"
+              className="object-cover w-full h-full rounded-lg shadow-sm"
               alt=""
-              height="100"
-              width="100"
+              height="200"
+              width="200"
               priority={true}
             />
           </div>

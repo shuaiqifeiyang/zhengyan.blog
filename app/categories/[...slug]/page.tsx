@@ -26,6 +26,12 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     );
   });
 
+  categoryArticleMetadata.sort((a, b) => {
+    return (
+      new Date(b.created_at!).getTime() - new Date(a.created_at!).getTime()
+    );
+  });
+
   return (
     <div className="pt-10">
       <h1 className="text-xl font-bold py-5">{params.slug[0]}</h1>
