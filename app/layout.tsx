@@ -54,7 +54,7 @@ export default async function RootLayout({
           // fontSans.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light">
           <div className="h-screen flex flex-col light:bg-slate-50">
             <Nav categories={categories} tags={tags} />
             <div className="w-full flex justify-center px-5 flex-grow overflow-y-auto">
