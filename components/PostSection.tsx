@@ -14,7 +14,7 @@ export default function PostSection({
   return (
     <div className="py-2 border-b border-dashed flex flex-col justify-between">
       <div className="flex justify-between">
-        <div className="text-sm text-gray-500 font-semibold">{category}</div>
+        <div className="text-sm  font-semibold">{category}</div>
         <div className="flex text-sm">
           <div className="pr-2">🔖</div>
           {tags.map((tag, idx) => {
@@ -29,11 +29,11 @@ export default function PostSection({
           })}
         </div>
       </div>
-      <div className="font-bold text-gray-800 text-xl">
+      <div className="font-bold text-xl">
         <ArticleLink link={link}>
           <div>
             {title}{" "}
-            <span className="text-xs font-normal text-gray-400">{`[${created_at}]`}</span>
+            <span className="text-xs font-normal">{`[${created_at}]`}</span>
           </div>
         </ArticleLink>
       </div>
@@ -52,7 +52,7 @@ export default function PostSection({
           </div>
         )}
 
-        <div className="text-gray-500">
+        <div className="">
           {description}{" "}
           <ArticleLink link={link}>
             <span className="text-blue-500 text-sm">Read More</span>

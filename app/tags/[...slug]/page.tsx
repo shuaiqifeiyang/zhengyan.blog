@@ -1,4 +1,4 @@
-import { ArticleLink } from "@/components/Links";
+import HomePage from "@/components/ui/pages/homepage";
 import { get_files_metadata_in_a_folder } from "@/utils";
 
 export const dynamicParams = false;
@@ -37,18 +37,9 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
   console.log(articleMetadata);
   return (
-    <div className="pt-10">
-      <h1 className="text-xl font-bold py-5">{url2Tags[params.slug[0]]}</h1>
-      <ul>
-        {articleMetadata.map((data) => (
-          <li key={data.title} className="pb-1 flex justify-between">
-            <ArticleLink link={data.link!}>
-              {data.title}
-              <span className="text-orange-500">{` [${data.created_at}]`}</span>
-            </ArticleLink>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <HomePage
+      metadata={articleMetadata}
+      highlightBadgeTitle={url2Tags[params.slug[0]]}
+    />
   );
 }

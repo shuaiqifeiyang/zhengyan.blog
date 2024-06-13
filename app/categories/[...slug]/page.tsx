@@ -1,4 +1,5 @@
 import { CategoryLink, ArticleLink } from "@/components/Links";
+import HomePage from "@/components/ui/pages/homepage";
 import { get_files_metadata_in_a_folder } from "@/utils";
 
 export const dynamicParams = false;
@@ -6,13 +7,6 @@ export const dynamicParams = false;
 export async function generateStaticParams() {
   // console.log("generateStatticParams");
   const metadata = await get_files_metadata_in_a_folder("./md");
-  // console.log([...new Set(metadata.map((data) => data.tags).flat())]);
-  console.log("generateStaticParams");
-  console.log(
-    [...new Set(metadata.map((data) => data.category))].map((t) => {
-      return { slug: [t?.toLocaleLowerCase().replace(" ", "-")] };
-    })
-  );
   return [...new Set(metadata.map((data) => data.category))].map((t) => {
     return { slug: [t?.toLocaleLowerCase().replace(" ", "-")] };
   });
@@ -20,7 +14,13 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
   const articleMetadata = await get_files_metadata_in_a_folder("./md");
+  let highlightBadgeTitle = "";
   const categoryArticleMetadata = articleMetadata.filter((data) => {
+    if (
+      data.category!.toLocaleLowerCase().replace(" ", "-") === params.slug[0]
+    ) {
+      highlightBadgeTitle = data.category!;
+    }
     return (
       data.category!.toLocaleLowerCase().replace(" ", "-") === params.slug[0]
     );
@@ -33,18 +33,9 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   });
 
   return (
-    <div className="pt-10">
-      <h1 className="text-xl font-bold py-5">{params.slug[0]}</h1>
-      <ul>
-        {categoryArticleMetadata.map((data) => (
-          <li key={data.title} className="pb-1 flex justify-between">
-            <ArticleLink link={data.link!}>
-              {data.title}
-              <span className="text-orange-500">{` [${data.created_at}]`}</span>
-            </ArticleLink>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <HomePage
+      metadata={categoryArticleMetadata}
+      highlightBadgeTitle={highlightBadgeTitle}
+    />
   );
 }

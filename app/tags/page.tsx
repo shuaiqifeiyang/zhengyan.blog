@@ -6,7 +6,6 @@ export default async function Page() {
   return (
     <div className="pt-10">
       <h1 className="text-xl font-bold py-5">Tags</h1>
-      <TagSection />
     </div>
   );
 }

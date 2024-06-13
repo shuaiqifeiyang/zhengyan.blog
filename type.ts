@@ -9,3 +9,9 @@ export interface ArticleMetadata {
   link?: string;
   image?: string;
 }
+
+export type BadgeItem = {
+  title: string;
+  count: number;
+  href: string;
+};

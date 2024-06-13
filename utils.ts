@@ -1,4 +1,4 @@
-import { ArticleMetadata } from "./type";
+import { ArticleMetadata, BadgeItem } from "./type";
 import { promises as fs } from "fs";
 import path from "path";
 import { unified } from "unified";
@@ -79,4 +79,68 @@ export async function get_file_metadata(curPath: string) {
     .process(source);
 
   return res;
+}
+
+export async function get_all_tags() {
+  let articleMetadata = await get_files_metadata_in_a_folder("./md");
+  const tagCnt: { [key: string]: number } = {};
+
+  articleMetadata.forEach((data) => {
+    data.tags!.forEach((tag) => {
+      if (tag in tagCnt) {
+        tagCnt[tag]++;
+      } else {
+        tagCnt[tag] = 1;
+      }
+    });
+  });
+
+  const tags: BadgeItem[] = Object.keys(tagCnt)
+    .map((tag) => {
+      return {
+        title: tag,
+        count: tagCnt[tag],
+        href: `/tags/${tag.toLocaleLowerCase().replace(" ", "-")}`,
+      };
+    })
+    .sort((a, b) => {
+      if (a.count < b.count) {
+        return 1;
+      } else if (a.count > b.count) {
+        return -1;
+      }
+      return 0;
+    });
+
+  return tags;
+}
+
+export async function get_all_categories() {
+  let articleMetadata = await get_files_metadata_in_a_folder("./md");
+
+  const categoryCnt: { [key: string]: number } = {};
+
+  articleMetadata.forEach((data) => {
+    if (data.category) {
+      if (!(data.category in categoryCnt)) categoryCnt[data.category] = 1;
+      else categoryCnt[data.category]++;
+    }
+  });
+  const categories: BadgeItem[] = Object.keys(categoryCnt)
+    .map((category) => {
+      return {
+        title: category,
+        count: categoryCnt[category],
+        href: `/categories/${category.toLocaleLowerCase().replace(" ", "-")}`,
+      };
+    })
+    .sort((a, b) => {
+      if (a.count < b.count) {
+        return 1;
+      } else if (a.count > b.count) {
+        return -1;
+      }
+      return 0;
+    });
+  return categories;
 }

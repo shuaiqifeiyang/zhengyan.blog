@@ -1,28 +1,57 @@
-import Link from "next/link";
-import { ThemeSwitcher } from "./ThemeSwitcher";
+//prettier-ignore
+"use client"
 
-export default function Nav() {
+import Link from "next/link";
+import ThemeSwitcher from "./ThemeSwitcher";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu";
+import BadgeSection from "./BadgeSection";
+import { get_all_categories, get_all_tags } from "@/utils";
+import { BadgeItem } from "@/type";
+
+export default async function Nav({
+  tags,
+  categories,
+}: {
+  tags: BadgeItem[];
+  categories: BadgeItem[];
+}) {
   return (
     <>
       <div
         id="Nav"
-        className="h-14 shrink-0 shadow-sm hover:animate-a-shadow-md flex items-center px-10 gap-x-3 justify-between bg-slate-100"
+        className="h-14 shrink-0 shadow-sm hover:animate-a-shadow-md flex items-center px-5 lg:px-10 gap-x-3 justify-between light:bg-slate-100"
       >
         <div className="text-lg font-bold">
           <Link href="/">zhengyan.blog 🖥️</Link>
         </div>
         <div className="flex gap-x-3 items-center">
-          {/* <div>Posts</div> */}
-          <Link href="/categories">
-            <div>Categories</div>
-          </Link>
-          <Link href="/tags">
-            <div>Tags</div>
-          </Link>
-          {/* <Link href="/about">
-            <div>About</div>
-          </Link> */}
-          {/* <ThemeSwitcher /> */}
+          <NavigationMenu className="md:hidden">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
+                <NavigationMenuContent className="px-5 py-3 min-w-[15rem]">
+                  <BadgeSection badges={categories} />
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Tags</NavigationMenuTrigger>
+                <NavigationMenuContent className="px-5 py-3 min-w-[15rem]">
+                  <BadgeSection badges={tags} />
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+          <ThemeSwitcher />
         </div>
       </div>
     </>

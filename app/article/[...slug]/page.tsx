@@ -1,24 +1,19 @@
 import { promises as fs } from "fs";
 import { unified } from "unified";
+import { Card } from "@/components/ui/card";
 import rehypeStringify from "rehype-stringify";
 import remarkStringfy from "remark-stringify";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import remarkMath from "remark-math";
-import remarkSlug from "remark-slug";
-import rehypeToc from "@jsdevtools/rehype-toc";
 import remarkToc from "remark-toc";
-import Markdown from "react-markdown";
-import MarkNav from "markdown-navbar";
 import remarkFrontmatter from "remark-frontmatter";
-import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import Toc from "@/components/Toc";
-import { Metadata } from "next";
 import { get_file_metadata, get_files_path_in_a_folder } from "@/utils";
 import { ArticleMetadata } from "@/type";
 import { CategoryLink, TagLink } from "@/components/Links";
@@ -37,7 +32,6 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  console.log("generateStatticParams");
   let metadata = await get_files_path_in_a_folder("./md");
 
   metadata = metadata.map((data) => data.replace(/\.md$/g, ""));
@@ -68,7 +62,10 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     .use(rehypeKatex)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
-    .use(rehypePrettyCode, { theme: "github-light" })
+    .use(rehypePrettyCode, {
+      theme: { light: "github-light", dark: "github-dark" },
+      //theme: "github-dark",
+    })
     .use(rehypeStringify)
     .process(source);
 
@@ -90,8 +87,8 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
   return (
     <div className="w-full">
-      <div className="w-full flex flex-col items-center">
-        <div className="pt-10 flex flex-col">
+      <div className="w-full grid grid-cols-1 md:grid-cols-[1fr_15rem] lg:grid-cols-[1fr_65ch_1fr] pb-52">
+        <div className="pt-20 flex flex-col lg:col-start-2">
           <h1 className="text-[1.8rem] font-bold max-w-[35ch]">
             {mdata.title!}
           </h1>
@@ -120,14 +117,14 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             })}
           </div>
           <article
-            className="prose pt-5 pb-32"
+            className="prose dark:prose-invert shiki prose-pre:bg-[var(--shiki-light-bg)] prose-pre:dark:bg-[var(--shiki-dark-bg)]"
             dangerouslySetInnerHTML={{ __html: String(mdSource) }}
           />
         </div>
 
-        {/* <div>
-        <TOC markdown={source} />
-      </div> */}
+        <div>
+          <TOC markdown={source} />
+        </div>
       </div>
     </div>
   );
@@ -145,30 +142,15 @@ function TOC({ markdown }: { markdown: string }) {
   });
 
   const tree = processor.parse(markdown);
-  // console.log(tree);
-  // console.log("hello");
-  // console.log(tree.children[0].children);
-  //console.log(tree);
   const tocNode: any = tree.children.filter((node) => node.type === "heading");
-  // console.log(tocNode[0].children[0].value);
-  //console.log(tocNode);
-  // tocNode.forEach((x) => {
-  //console.log(x.children[]);
-  // });
 
   const headings = tocNode.map((node: any) => {
     return node.children[0].value;
   });
 
   return (
-    <div className="sticky top-0">
+    <div className="sticky top-10 pl-4 max-w-[16rem]">
       <Toc headings={headings} />
     </div>
   );
-
-  // const tocItems = tocNode.items.map((item) => {
-  //   const title = hastToString(toHAST(item));
-  //   const slug = item.slug;
-  //   return { title, slug };
-  // });
 }
