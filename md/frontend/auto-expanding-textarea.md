@@ -11,7 +11,7 @@
 
 ## Recipe
 
-Every time user input text changes:
+Every time user inputs text changes:
 
 * initially sets the height of the textarea to `MIN_HEIGHT`
 * then sets the height based on the scroll height of the textarea to ensure that the textarea grows with the content

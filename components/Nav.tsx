@@ -37,14 +37,18 @@ export default async function Nav({
           <NavigationMenu className="md:hidden">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="px-1">
+                  Categories
+                </NavigationMenuTrigger>
                 <NavigationMenuContent className="px-5 py-3 min-w-[15rem]">
                   <BadgeSection badges={categories} />
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Tags</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="px-1">
+                  Tags
+                </NavigationMenuTrigger>
                 <NavigationMenuContent className="px-5 py-3 min-w-[15rem]">
                   <BadgeSection badges={tags} />
                 </NavigationMenuContent>
