@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     return 0;
   });
 
-  console.log(articleMetadata);
+  // console.log(articleMetadata);
   return (
     <HomePage
       metadata={articleMetadata}

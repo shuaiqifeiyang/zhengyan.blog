@@ -21,7 +21,7 @@ export default function ThemeSwitcher() {
           variant="outline"
           size="icon"
           onClick={() => {
-            console.log("theme: ", theme);
+            // console.log("theme: ", theme);
             if (theme === "light") {
               setTheme("dark");
             } else if (theme === "dark") {

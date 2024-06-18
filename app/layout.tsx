@@ -44,7 +44,6 @@ export default async function RootLayout({
   const categories = await get_all_categories();
   const tags = await get_all_tags();
   // const metadata = await get_files_metadata_in_a_folder("./md");
-  console.log(path);
 
   return (
     <html lang="en" suppressHydrationWarning>

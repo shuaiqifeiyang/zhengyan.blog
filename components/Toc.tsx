@@ -15,21 +15,13 @@ export default function Toc({ headings }: { headings: string[] }) {
   );
 
   const handleObserver = (entries: any) => {
-    console.log("entries length: " + entries.length);
-
-    console.log(activeArr);
-
     for (let i = 0; i < entries.length; i++) {
       if (entries[i].isIntersecting) {
         const id = headingsID.findIndex((ele) => ele === entries[i].target.id);
-        console.log("id");
-        console.log(id);
         activeArr.current[id] = true;
       } else {
         const id = headingsID.findIndex((ele) => ele === entries[i].target.id);
         activeArr.current[id] = false;
-        console.log("id");
-        console.log(id);
       }
     }
 

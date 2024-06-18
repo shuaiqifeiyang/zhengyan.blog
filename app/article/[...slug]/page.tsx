@@ -117,7 +117,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             })}
           </div>
           <article
-            className="prose dark:prose-invert shiki prose-pre:bg-[var(--shiki-light-bg)] prose-pre:dark:bg-[var(--shiki-dark-bg)]"
+            className="mt-10 prose dark:prose-invert shiki prose-pre:bg-[var(--shiki-light-bg)] prose-pre:dark:bg-[var(--shiki-dark-bg)]"
             dangerouslySetInnerHTML={{ __html: String(mdSource) }}
           />
         </div>
@@ -142,7 +142,11 @@ function TOC({ markdown }: { markdown: string }) {
   });
 
   const tree = processor.parse(markdown);
-  const tocNode: any = tree.children.filter((node) => node.type === "heading");
+
+  const tocNode: any = tree.children.filter((node) => {
+    console.log(node);
+    return node.type === "heading" && node.depth === 2;
+  });
 
   const headings = tocNode.map((node: any) => {
     return node.children[0].value;
