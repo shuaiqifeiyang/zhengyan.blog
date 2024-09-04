@@ -50,7 +50,7 @@ export default function Toc({ headings }: { headings: string[] }) {
 
   return (
     <>
-      <div className="font-bold mb-3">On Ths Page</div>
+      {headings.length > 0 && <div className="font-bold mb-3">On Ths Page</div>}
       {headings.map((x: string, id: Number) => (
         <div
           key={String(id)}

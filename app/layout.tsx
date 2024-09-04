@@ -40,7 +40,6 @@ export default async function RootLayout({
 }>) {
   // initial processing
 
-  const path = await get_files_path_in_a_folder("./md");
   const categories = await get_all_categories();
   const tags = await get_all_tags();
   // const metadata = await get_files_metadata_in_a_folder("./md");
