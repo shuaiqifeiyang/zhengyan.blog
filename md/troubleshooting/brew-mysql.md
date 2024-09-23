@@ -3,8 +3,8 @@
   "title": "MySQL Installation with Brew",
   "draft": false,
   "created_at": "2024-09-03",
-  "category": "MySQL",
-  "tags": ["MySQL", "Troubleshooting"],
+  "category": "Troubleshooting",
+  "tags": ["MySQL", "Homebrew"],
   "description": "I've installed multiple mysql version via Brew. mysql@8.4 can't run successfully on my laptop"
 }
 ---
