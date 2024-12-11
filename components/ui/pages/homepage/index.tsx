@@ -23,8 +23,8 @@ export default async function HomePage({
 }: {
   metadata: ArticleMetadata[];
   highlightBadgeTitle?: string;
-  pageIdx: number;
-  pageCnt: number;
+  pageIdx?: number;
+  pageCnt?: number;
 }) {
   const categories = await get_all_categories();
   const tags = await get_all_tags();
