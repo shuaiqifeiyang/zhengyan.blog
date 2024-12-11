@@ -1,6 +1,6 @@
 import { get_files_metadata_in_a_folder } from "@/utils";
 import HomePage from "@/components/ui/pages/homepage";
-
+import config from "@/config/config";
 export default async function Home() {
   const metadata = await get_files_metadata_in_a_folder("./md");
   metadata.sort((a, b) => {
@@ -10,5 +10,5 @@ export default async function Home() {
     return -1;
   });
 
-  return <HomePage metadata={metadata} />;
+  return <HomePage metadata={metadata} pageIdx={0} pageCnt={config.pageSize}/>;
 }
