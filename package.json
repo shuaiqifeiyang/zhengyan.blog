@@ -40,6 +40,7 @@
     "remark-slug": "^7.0.1",
     "remark-stringify": "^11.0.0",
     "remark-toc": "^9.0.0",
+    "sharp": "^0.33.5",
     "tailwind-highlightjs": "^2.0.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
