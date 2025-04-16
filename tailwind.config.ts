@@ -1,3 +1,5 @@
+import { NextFontManifestPlugin } from "next/dist/build/webpack/plugins/next-font-manifest-plugin";
+import { Span } from "next/dist/trace";
 import type { Config } from "tailwindcss";
 const { fontFamily } = require("tailwindcss/defaultTheme");
 
@@ -53,6 +55,9 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // fontFamily: {
+        //   sans: ['var(--font-inter)', 'sans-serif'],
+        // },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -76,6 +81,31 @@ const config = {
       fontFamily: {
         sans: [...fontFamily.sans],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            "span.katex":{
+              position: "relative !important",
+           }
+          }
+        },
+        dark: {
+          css: {
+            color: "var(--foreground)",
+            a: {
+              color: "var(--primary)",
+              "&:hover": {
+                color: "var(--primary)",
+              },
+            },
+            code: { color: "var(--primary)" },
+            pre: {
+              backgroundColor: "var(--background)",
+              color: "var(--foreground)",
+            },
+          },
+        },
+      }
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],

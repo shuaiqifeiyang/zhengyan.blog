@@ -17,6 +17,7 @@ export async function generateStaticParams() {
     return res;
 }
 
-export default function Page({ params }: { params: { slug: string[] } }) {
+export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
+    const params = await props.params;
     return <div>{params.slug[0]}</div>
 }

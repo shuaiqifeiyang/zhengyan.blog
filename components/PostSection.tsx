@@ -12,7 +12,7 @@ export default function PostSection({
   image = "",
 }: ArticleMetadata) {
   return (
-    <div className="py-2 border-b border-dashed flex flex-col justify-between">
+    <div className="border-b flex flex-col justify-between mx-10 py-3">
       <div className="flex justify-between">
         <div className="text-sm  font-semibold">{category}</div>
         <div className="flex text-sm">
@@ -23,7 +23,6 @@ export default function PostSection({
                 <TagLink link={"tags/" + tag}>
                   {idx === 0 ? tag : ", " + tag}
                 </TagLink>
-                {/* {tag} */}
               </div>
             );
           })}

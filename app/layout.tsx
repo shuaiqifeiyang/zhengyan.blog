@@ -21,7 +21,24 @@ import {
 } from "@/utils";
 import { Analytics } from "@vercel/analytics/react";
 
-// const inter = Inter({ subsets: ["latin"] });
+
+// If loading a variable font, you don't need to specify the font weight
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const geologica = Geologica({
+  subsets: ["latin"],
+  variable: "--font-geologica",
+  weight: "400",
+});
+
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  variable: "--font-merriweather",
+  weight: "700",
+});
 // const fontSans = FontSans({
 //   subsets: ["latin"],
 //   variable: "--font-sans",
@@ -45,18 +62,21 @@ export default async function RootLayout({
   // const metadata = await get_files_metadata_in_a_folder("./md");
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={merriweather.variable}>
+      
       <body
         className={cn(
-          "h-screen bg-background font-sans antialiased overflow-hidden"
+          "h-screen bg-background antialiased overflow-hidden"
           // fontSans.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
           <div className="h-screen flex flex-col light:bg-slate-50">
             <Nav categories={categories} tags={tags} />
-            <div className="w-full flex justify-center px-5 flex-grow overflow-y-auto">
-              {children}
+            <div className="w-full flex justify-center px-5 overflow-y-auto">
+              <div className="w-full h-full xl:w-4/5 2xl:max-w-[90rem]">
+                {children}
+              </div>
               {/* <div className="text-center border-t border-dashed text-sm">
                   Copyright ©️ 2024 zhengyan.blog
                 </div> */}

@@ -17,15 +17,17 @@ import Toc from "@/components/Toc";
 import { get_file_metadata, get_files_path_in_a_folder } from "@/utils";
 import { ArticleMetadata } from "@/type";
 import { CategoryLink, TagLink } from "@/components/Links";
+import "katex/dist/katex.css";
 // import { useEffect } from "react";
 
 export const dynamicParams = false;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string[] };
-}) {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string[] }>;
+  }
+) {
+  const params = await props.params;
   const filePath = `md/${params.slug.join("/")}.md`;
   const x = await get_file_metadata(filePath);
   return { title: x.title };
@@ -46,7 +48,8 @@ export async function generateStaticParams() {
 // /products/[category]/[product]	{ category: string, product: string }[]
 // /products/[...slug]	          { slug: string[] }[]
 
-export default async function Page({ params }: { params: { slug: string[] } }) {
+export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
+  const params = await props.params;
   const md = await fs.readFile(
     `${process.cwd()}/md/${params.slug.join("/")}.md`,
     "utf8"
@@ -59,13 +62,13 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     .use(remarkFrontmatter, { marker: "-", type: "yaml" })
     .use(remarkGfm)
     .use(remarkRehype)
-    .use(rehypeKatex)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
     .use(rehypePrettyCode, {
       theme: { light: "github-light", dark: "github-dark" },
       //theme: "github-dark",
     })
+    .use(rehypeKatex)
     .use(rehypeStringify)
     .process(source);
 
@@ -117,7 +120,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             })}
           </div>
           <article
-            className="mt-10 prose dark:prose-invert shiki prose-pre:bg-[var(--shiki-light-bg)] prose-pre:dark:bg-[var(--shiki-dark-bg)]"
+            className="mt-10 prose dark:prose-invert shiki prose-pre:bg-[var(--shiki-light-bg)] prose-pre:dark:bg-[var(--shiki-dark-bg)] prose-h2:scroll-mt-10 prose-span:static!"
             dangerouslySetInnerHTML={{ __html: String(mdSource) }}
           />
         </div>

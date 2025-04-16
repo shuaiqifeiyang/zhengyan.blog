@@ -8,9 +8,15 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="pt-10">
-      <h1 className="text-xl font-bold py-5">About Me</h1>
-      <div>I am a software engineer.</div>
+    <div className="flex justify-center items-center flex-col">
+      <div className="pt-10 max-w-[50rem]">
+        <h1 className="text-xl font-bold py-5">About Me</h1>
+        <div>
+          I am a full stack software engineer at Visa. I spend my spare time
+          learning new technologies and writing blog posts. I hope this blog
+          site is helpful to you.
+        </div>
+      </div>
     </div>
   );
 }

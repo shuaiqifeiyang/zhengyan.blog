@@ -1,5 +1,4 @@
 import remarkGfm from "remark-gfm";
-import createMDX from "@next/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -33,15 +32,15 @@ const options = {
   // theme: "material-theme",
 };
 
-const withMDX = createMDX({
-  extension: /\.mdx?$/,
-  // Add markdown plugins here, as desired
-  options: {
-    remarkPlugins: [remarkMath, remarkGfm],
-    rehypePlugins: [rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings, rehypeToc],
-  },
-});
+// const withMDX = createMDX({
+//   extension: /\.mdx?$/,
+//   // Add markdown plugins here, as desired
+//   options: {
+//     remarkPlugins: [remarkMath, remarkGfm],
+//     rehypePlugins: [rehypeKatex, rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings, rehypeToc],
+//   },
+// });
 
 // Merge MDX config with Next.js config
-export default withMDX(nextConfig);
-// export default nextConfig
+
+export default nextConfig

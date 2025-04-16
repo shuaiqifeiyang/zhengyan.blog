@@ -1,5 +1,5 @@
 import { get_files_metadata_in_a_folder } from "@/utils";
-import HomePage from "@/components/ui/pages/homepage";
+import HomePage from "@/components/pages/homepage";
 import config from "@/config/config";
 export default async function Home() {
   const metadata = await get_files_metadata_in_a_folder("./md");
